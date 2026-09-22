@@ -2,12 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import {
   ChevronDown,
   ChevronRight,
+  Flame,
+  Gift,
   Heart,
   LayoutGrid,
   MapPin,
   Menu,
+  Mic,
   Search,
   ShoppingCart,
+  Sparkles,
   User,
   X,
 } from "lucide-react";
@@ -15,19 +19,16 @@ import Logo from "../common/Logo";
 import categories from "../../data/categories";
 import { mainNav, site } from "../../data/site";
 
-/**
- * Sticky site header.
- *
- * Desktop — logo, search, account/wishlist/cart actions, then a nav row
- *           with the "All Categories" mega-dropdown on the left.
- * Mobile  — a compact bar (logo + icons), a permanently visible search
- *           field, and a slide-in drawer for navigation.
- *
- * Cart and wishlist counts are hard-coded until state lands; they read
- * from one place here so wiring a store later is a single change.
- */
 const CART_COUNT = 2;
 const WISHLIST_COUNT = 1;
+
+// Quick suggestions chips matching UI reference
+const SUGGESTIONS = [
+  { label: "Under ₹500", icon: null },
+  { label: "For Gym", icon: Sparkles },
+  { label: "Gift Ideas", icon: Gift },
+  { label: "Trending", icon: Flame },
+];
 
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -35,7 +36,7 @@ const Header = () => {
   const [openGroup, setOpenGroup] = useState(null);
   const catRef = useRef(null);
 
-  /* Close the category dropdown on outside click or Escape. */
+  /* Close category dropdown on outside click or Escape key */
   useEffect(() => {
     if (!catOpen) return;
 
@@ -54,7 +55,7 @@ const Header = () => {
     };
   }, [catOpen]);
 
-  /* Lock body scroll while the mobile drawer is open. */
+  /* Lock body scroll while drawer is open */
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? "hidden" : "";
     return () => {
@@ -62,6 +63,7 @@ const Header = () => {
     };
   }, [drawerOpen]);
 
+  // Search input bar with Mic icon
   const searchField = (id, className = "") => (
     <form
       role="search"
@@ -69,29 +71,42 @@ const Header = () => {
       className={`relative ${className}`}
     >
       <label htmlFor={id} className="sr-only">
-        Search products
+        What are you looking for?
       </label>
 
+      {/* Search Icon */}
       <Search
         size={17}
         aria-hidden="true"
-        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-400"
+        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
       />
 
+      {/* Input Field */}
       <input
         id={id}
         type="search"
-        placeholder="Search for toys, sports, gifts, gadgets…"
-        className="h-10 w-full rounded-full border border-line bg-surface pl-10 pr-24 text-sm text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-gold-400 sm:h-11"
+        placeholder="What are you looking for?"
+        className="h-10 w-full rounded-full border border-slate-700 bg-slate-900/80 pl-10 pr-20 text-xs text-white placeholder:text-gray-400 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400 sm:text-sm"
       />
 
-      <button
-        type="submit"
-        className="absolute right-1 top-1/2 flex h-8 -translate-y-1/2 items-center gap-1.5 rounded-full bg-gold-400 px-4 text-xs font-bold text-navy-900 transition-colors hover:bg-gold-300 sm:h-9"
-      >
-        <Search size={14} aria-hidden="true" />
-        <span className="hidden sm:inline">Search</span>
-      </button>
+      {/* Mic Button & Search Button */}
+      <div className="absolute right-1 top-1/2 flex -translate-y-1/2 items-center gap-1">
+        <button
+          type="button"
+          aria-label="Voice Search"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-400/10 text-amber-400 hover:bg-amber-400/20"
+        >
+          <Mic size={15} />
+        </button>
+        <button
+          type="submit"
+          aria-label="Search"
+          className="flex h-8 items-center gap-1 rounded-full bg-amber-400 px-3 text-xs font-bold text-slate-950 transition-colors hover:bg-amber-300"
+        >
+          <Search size={13} />
+          <span className="hidden sm:inline">Search</span>
+        </button>
+      </div>
     </form>
   );
 
@@ -99,14 +114,14 @@ const Header = () => {
     <a
       href={href}
       aria-label={count ? `${label}, ${count} items` : label}
-      className="relative grid h-10 w-10 place-items-center rounded-full text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+      className="relative grid h-9 w-9 place-items-center rounded-full text-gray-200 transition-colors hover:bg-white/10 hover:text-white"
     >
-      <Icon size={20} aria-hidden="true" />
+      <Icon size={19} aria-hidden="true" />
 
       {count > 0 && (
         <span
           aria-hidden="true"
-          className="absolute right-1 top-1 grid h-4 min-w-4 place-items-center rounded-full bg-gold-400 px-1 text-[9px] font-bold text-navy-900"
+          className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-amber-400 px-1 text-[9px] font-bold text-slate-950"
         >
           {count}
         </span>
@@ -115,29 +130,29 @@ const Header = () => {
   );
 
   return (
-    <header id="top" className="sticky top-0 z-50">
-      {/* ---------------- Main bar ---------------- */}
-      <div className="bg-navy-800">
-        <div className="mx-auto flex h-14 max-w-[1280px] items-center gap-3 px-4 sm:h-16 sm:px-6 lg:gap-6 lg:px-8">
-          {/* Mobile menu */}
+    <header id="top" className="sticky top-0 z-50 bg-[#0B132B]">
+      {/* ---------------- Main Top Bar ---------------- */}
+      <div className="border-b border-slate-800">
+        <div className="mx-auto flex h-14 max-w-[1280px] items-center gap-2 px-3 sm:h-16 sm:px-6 lg:gap-6 lg:px-8">
+          {/* Mobile menu trigger */}
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
             aria-label="Open menu"
-            aria-expanded={drawerOpen}
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-white transition-colors hover:bg-white/10 lg:hidden"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-white hover:bg-white/10 lg:hidden"
           >
-            <Menu size={22} aria-hidden="true" />
+            <Menu size={20} />
           </button>
 
+          {/* Logo */}
           <Logo variant="light" />
 
-          {/* Desktop search */}
+          {/* Desktop Search Bar */}
           {searchField("site-search", "hidden min-w-0 flex-1 lg:block")}
 
-          {/* Desktop delivery pin */}
-          <div className="hidden shrink-0 items-center gap-2 text-xs text-white/70 xl:flex">
-            <MapPin size={16} aria-hidden="true" className="text-gold-400" />
+          {/* Desktop Delivery Pin */}
+          <div className="hidden shrink-0 items-center gap-2 text-xs text-slate-300 xl:flex">
+            <MapPin size={16} className="text-amber-400" />
             <span className="leading-tight">
               Deliver to
               <br />
@@ -147,245 +162,136 @@ const Header = () => {
             </span>
           </div>
 
-          {/* Actions */}
-          <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
-            <a
-              href="#"
-              className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm text-white/85 transition-colors hover:bg-white/10 hover:text-white lg:flex"
-            >
-              <User size={19} aria-hidden="true" />
-              <span className="whitespace-nowrap font-medium">Login</span>
-            </a>
-
+          {/* Action Icons */}
+          <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
             {iconLink(Heart, "Wishlist", WISHLIST_COUNT)}
             {iconLink(ShoppingCart, "Shopping cart", CART_COUNT)}
+            {iconLink(User, "Account", 0)}
           </div>
         </div>
 
-        {/* Mobile search — always visible */}
-        <div className="px-4 pb-3 sm:px-6 lg:hidden">
+        {/* Mobile Search Bar */}
+        <div className="px-3 pb-2 lg:hidden">
           {searchField("site-search-mobile")}
+        </div>
+
+        {/* Suggestion Chips */}
+        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto px-3 pb-3 pt-1 text-xs sm:px-6 lg:px-8">
+          {SUGGESTIONS.map((item, idx) => {
+            const IconComp = item.icon;
+            return (
+              <button
+                key={idx}
+                type="button"
+                className="flex shrink-0 items-center gap-1.5 rounded-md border border-slate-700/80 bg-slate-800/60 px-2.5 py-1 text-[11px] font-medium text-slate-300 transition-colors hover:border-amber-400/50 hover:bg-slate-800 hover:text-amber-400"
+              >
+                {IconComp && <IconComp size={12} className="text-amber-400" />}
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* ---------------- Desktop nav row ---------------- */}
-      <div className="hidden border-b border-line bg-surface shadow-sm lg:block">
-        <div className="mx-auto flex h-12 max-w-[1280px] items-stretch gap-2 px-6 lg:px-8">
-          {/* All Categories dropdown */}
+      {/* ---------------- Desktop Navigation Row ---------------- */}
+      <div className="hidden border-b border-slate-800 bg-slate-900 shadow-sm lg:block">
+        <div className="mx-auto flex h-11 max-w-[1280px] items-stretch gap-2 px-6 lg:px-8">
+          {/* Category Dropdown */}
           <div ref={catRef} className="relative flex items-stretch">
             <button
               type="button"
               onClick={() => setCatOpen((o) => !o)}
-              aria-expanded={catOpen}
-              aria-controls="category-menu"
-              className="flex items-center gap-2 rounded-t-lg bg-gold-400 px-4 text-sm font-bold text-navy-900 transition-colors hover:bg-gold-300"
+              className="flex items-center gap-2 rounded-t-lg bg-amber-400 px-4 text-xs font-bold text-slate-950 transition-colors hover:bg-amber-300"
             >
-              <LayoutGrid size={17} aria-hidden="true" />
+              <LayoutGrid size={15} />
               All Categories
               <ChevronDown
-                size={15}
-                aria-hidden="true"
-                className={`transition-transform duration-200 ${
-                  catOpen ? "rotate-180" : ""
-                }`}
+                size={14}
+                className={`transition-transform duration-200 ${catOpen ? "rotate-180" : ""
+                  }`}
               />
             </button>
 
             {catOpen && (
               <div
                 id="category-menu"
-                className="absolute left-0 top-full z-50 w-72 overflow-hidden rounded-b-xl border border-line bg-surface py-1.5 shadow-xl"
+                className="absolute left-0 top-full z-50 w-72 overflow-hidden rounded-b-xl border border-slate-700 bg-slate-900 py-1.5 shadow-xl"
               >
                 {categories.map((cat) => (
                   <a
                     key={cat.id}
                     href={cat.slug === "pottery" ? "#pottery" : "#categories"}
                     onClick={() => setCatOpen(false)}
-                    className={`group flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
-                      cat.featured
-                        ? "font-semibold text-clay-700 hover:bg-clay-100"
-                        : "text-ink-700 hover:bg-navy-50 hover:text-navy-700"
-                    }`}
+                    className="group flex items-center gap-3 px-4 py-2 text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-amber-400"
                   >
                     <img
                       src={cat.image}
                       alt=""
-                      loading="lazy"
-                      className="h-7 w-7 shrink-0 rounded-md object-cover"
+                      className="h-6 w-6 rounded-md object-cover"
                     />
                     <span className="flex-1 truncate">{cat.name}</span>
-
-                    {cat.featured && (
-                      <span className="rounded-full bg-clay-600 px-1.5 py-0.5 text-[9px] font-bold text-white">
-                        SPECIAL
-                      </span>
-                    )}
-
-                    <ChevronRight
-                      size={14}
-                      aria-hidden="true"
-                      className="shrink-0 text-ink-400 transition-transform group-hover:translate-x-0.5"
-                    />
+                    <ChevronRight size={13} className="text-slate-500" />
                   </a>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Primary nav */}
+          {/* Main Links */}
           <nav aria-label="Main" className="flex items-stretch gap-1">
             {mainNav.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`flex items-center border-b-2 px-3 text-sm font-medium transition-colors ${
-                  link.highlight
-                    ? "border-transparent text-clay-600 hover:border-clay-500 hover:text-clay-700"
-                    : "border-transparent text-ink-700 hover:border-gold-400 hover:text-navy-700"
-                }`}
+                className="flex items-center border-b-2 border-transparent px-3 text-xs font-medium text-slate-300 hover:border-amber-400 hover:text-white"
               >
                 {link.name}
-                {link.highlight && (
-                  <span className="ml-1.5 rounded-full bg-clay-100 px-1.5 py-0.5 text-[9px] font-bold uppercase text-clay-700">
-                    New
-                  </span>
-                )}
               </a>
             ))}
           </nav>
         </div>
       </div>
 
-      {/* ---------------- Mobile drawer ---------------- */}
+      {/* ---------------- Mobile Sidebar Drawer ---------------- */}
       {drawerOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
-            aria-label="Close menu"
             onClick={() => setDrawerOpen(false)}
-            className="absolute inset-0 bg-navy-950/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
           />
 
-          <nav
-            aria-label="Mobile"
-            className="absolute inset-y-0 left-0 flex w-[84vw] max-w-sm flex-col bg-surface shadow-2xl"
-          >
-            <div className="flex h-14 shrink-0 items-center justify-between gap-3 bg-navy-800 px-4">
+          <nav className="absolute inset-y-0 left-0 flex w-[82vw] max-w-sm flex-col bg-slate-900 text-white shadow-2xl">
+            <div className="flex h-14 items-center justify-between border-b border-slate-800 px-4">
               <Logo variant="light" showTagline={false} />
-
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
-                aria-label="Close menu"
-                className="grid h-9 w-9 place-items-center rounded-full text-white transition-colors hover:bg-white/10"
+                className="grid h-8 w-8 place-items-center rounded-full hover:bg-slate-800"
               >
-                <X size={20} aria-hidden="true" />
+                <X size={18} />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto overscroll-contain">
-              {/* Account */}
-              <a
-                href="#"
-                onClick={() => setDrawerOpen(false)}
-                className="flex items-center gap-3 border-b border-line bg-navy-50 px-4 py-3.5 text-sm font-semibold text-navy-800"
-              >
-                <User size={18} aria-hidden="true" />
-                Login / Sign Up
-              </a>
-
-              {/* Pages */}
-              <ul className="border-b border-line py-1">
-                {mainNav.map((link) => (
-                  <li key={link.name}>
+            <div className="flex-1 overflow-y-auto p-4">
+              <ul className="space-y-1">
+                {categories.map((cat) => (
+                  <li key={cat.id}>
                     <a
-                      href={link.href}
+                      href="#categories"
                       onClick={() => setDrawerOpen(false)}
-                      className={`flex items-center justify-between px-4 py-3 text-sm font-medium ${
-                        link.highlight ? "text-clay-700" : "text-ink-700"
-                      }`}
+                      className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-200 hover:bg-slate-800"
                     >
-                      {link.name}
-                      {link.highlight && (
-                        <span className="rounded-full bg-clay-100 px-2 py-0.5 text-[9px] font-bold uppercase text-clay-700">
-                          Special
-                        </span>
-                      )}
+                      <img
+                        src={cat.image}
+                        alt=""
+                        className="h-7 w-7 rounded-md object-cover"
+                      />
+                      <span>{cat.name}</span>
                     </a>
                   </li>
                 ))}
               </ul>
-
-              {/* Categories — expandable */}
-              <p className="px-4 pb-1 pt-4 text-[11px] font-bold uppercase tracking-wider text-ink-400">
-                Shop by Category
-              </p>
-
-              <ul className="pb-4">
-                {categories.map((cat) => {
-                  const expanded = openGroup === cat.id;
-
-                  return (
-                    <li key={cat.id} className="border-b border-line/60">
-                      <button
-                        type="button"
-                        onClick={() => setOpenGroup(expanded ? null : cat.id)}
-                        aria-expanded={expanded}
-                        className="flex w-full items-center gap-3 px-4 py-3 text-left"
-                      >
-                        <img
-                          src={cat.image}
-                          alt=""
-                          loading="lazy"
-                          className="h-8 w-8 shrink-0 rounded-lg object-cover"
-                        />
-
-                        <span
-                          className={`flex-1 truncate text-sm ${
-                            cat.featured
-                              ? "font-semibold text-clay-700"
-                              : "font-medium text-ink-700"
-                          }`}
-                        >
-                          {cat.name}
-                        </span>
-
-                        <ChevronDown
-                          size={16}
-                          aria-hidden="true"
-                          className={`shrink-0 text-ink-400 transition-transform duration-200 ${
-                            expanded ? "rotate-180" : ""
-                          }`}
-                        />
-                      </button>
-
-                      {expanded && (
-                        <ul className="bg-canvas pb-2">
-                          {cat.subcategories.map((sub) => (
-                            <li key={sub}>
-                              <a
-                                href="#categories"
-                                onClick={() => setDrawerOpen(false)}
-                                className="block py-2 pl-[3.75rem] pr-4 text-[13px] text-ink-500"
-                              >
-                                {sub}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            {/* Drawer footer */}
-            <div className="shrink-0 border-t border-line bg-canvas px-4 py-3 text-xs text-ink-500">
-              <p className="flex items-center gap-2">
-                <MapPin size={14} aria-hidden="true" className="text-clay-500" />
-                Deliver to {site.address.short}
-              </p>
             </div>
           </nav>
         </div>

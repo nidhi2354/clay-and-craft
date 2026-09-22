@@ -4,38 +4,47 @@
    ZIVONIX — design tokens
    Every component reads from here. Change a value once and the
    whole site follows. Never hardcode a hex in a component.
+
+   The five anchor values below are the client's brand palette
+   and are exact — they are marked "spec". The other steps in
+   each ramp are derived from the anchor (same hue, stepped
+   lightness) so tints and shades stay in family.
    ============================================================ */
 @theme {
-  /* Navy — header, footer, dark surfaces */
-  --color-navy-50: #eef3fb;
-  --color-navy-100: #d3e0f4;
-  --color-navy-200: #a3bde6;
-  --color-navy-300: #6d92d3;
-  --color-navy-400: #3d68b6;
-  --color-navy-500: #1f4a94;
-  --color-navy-600: #143a79;
-  --color-navy-700: #0d2c5e;
-  --color-navy-800: #0a2149;
-  --color-navy-900: #071a38;
-  --color-navy-950: #04102a;
+  /* Navy — header, footer, dark surfaces.
+     Anchor: navy-900 = Deep Navy, hsl(215 69% 14%). */
+  --color-navy-50: #eef4fb;
+  --color-navy-100: #d2e0f2;
+  --color-navy-200: #a3c1e3;
+  --color-navy-300: #6b9bd0;
+  --color-navy-400: #3d79b5;
+  --color-navy-500: #275d96;
+  --color-navy-600: #1d4878;
+  --color-navy-700: #16375f;
+  --color-navy-800: #10294b;
+  --color-navy-900: #0b1f3b; /* spec — Deep Navy */
+  --color-navy-950: #06121f;
 
-  /* Gold — primary accent, CTAs, prices, highlights */
-  --color-gold-50: #fff9e6;
-  --color-gold-100: #ffefbf;
-  --color-gold-200: #ffe084;
-  --color-gold-300: #ffd149;
-  --color-gold-400: #ffc42e;
-  --color-gold-500: #f5a800;
-  --color-gold-600: #d18c00;
-  --color-gold-700: #a36c00;
+  /* Yellow — primary accent, CTAs, prices, highlights.
+     Anchor: gold-400 = Yellow Accent, hsl(50 100% 50%).
+     Kept under the `gold-*` name so no component has to change. */
+  --color-gold-50: #fffceb;
+  --color-gold-100: #fff6c2;
+  --color-gold-200: #ffed85;
+  --color-gold-300: #ffe347;
+  --color-gold-400: #ffd600; /* spec — Yellow Accent */
+  --color-gold-500: #e0bc00;
+  --color-gold-600: #b89800;
+  --color-gold-700: #8a7100;
 
   /* Brand blue — logo mark, links, info states */
   --color-brand-400: #4d94f5;
   --color-brand-500: #1877f2;
   --color-brand-600: #0f5fcc;
 
-  /* Clay — the Pottery spotlight keeps its own warm ramp */
-  --color-clay-100: #f8e7db;
+  /* Clay — the Pottery spotlight keeps its own warm ramp.
+     Anchor: clay-100 = Beige. */
+  --color-clay-100: #f5ede7; /* spec — Beige */
   --color-clay-200: #eecbb4;
   --color-clay-300: #e0a884;
   --color-clay-400: #cf8259;
@@ -48,10 +57,10 @@
   --color-ink-900: #0f172a;
   --color-ink-700: #334155;
   --color-ink-500: #64748b;
-  --color-ink-400: #94a3b8;
+  --color-ink-400: #9ca3af; /* spec — Gray */
   --color-line: #e4e8f0;
   --color-surface: #ffffff;
-  --color-canvas: #f4f6fa;
+  --color-canvas: #f8fafc; /* spec — Off White */
 
   /* Semantic */
   --color-success: #16a34a;
@@ -85,9 +94,14 @@
     -webkit-appearance: none;
   }
 
-  /* Visible, on-brand focus ring for keyboard users only */
+  /* Visible, on-brand focus ring for keyboard users only.
+     Uses gold-700 rather than the bright accent: the accent itself
+     only reaches ~1.9:1 against the off-white canvas, which is under
+     the 3:1 a focus indicator needs. gold-700 clears 3:1 against both
+     the canvas (4.6:1) and the navy header (3.5:1), so one ring works
+     on light and dark sections alike. */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-gold-500;
+    @apply outline-2 outline-offset-2 outline-gold-700;
   }
 }
 

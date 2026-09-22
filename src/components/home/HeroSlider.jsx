@@ -67,11 +67,10 @@ const HeroSlider = () => {
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${count}`}
               aria-hidden={i !== index}
-              className={`absolute inset-0 transition-opacity duration-700 ease-soft ${
-                i === index
+              className={`absolute inset-0 transition-opacity duration-700 ease-soft ${i === index
                   ? "opacity-100"
                   : "pointer-events-none opacity-0"
-              }`}
+                }`}
             >
               <img
                 src={slide.image}
@@ -83,9 +82,8 @@ const HeroSlider = () => {
               />
 
               <div
-                className={`absolute inset-0 bg-gradient-to-r ${
-                  THEMES[slide.theme] ?? THEMES.navy
-                }`}
+                className={`absolute inset-0 bg-gradient-to-r ${THEMES[slide.theme] ?? THEMES.navy
+                  }`}
               />
 
               {/* Copy */}
@@ -157,11 +155,10 @@ const HeroSlider = () => {
               onClick={() => go(i)}
               aria-label={`Go to slide ${i + 1}`}
               aria-current={i === index}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === index
+              className={`h-2 rounded-full transition-all duration-300 ${i === index
                   ? "w-6 bg-gold-400"
                   : "w-2 bg-white/50 hover:bg-white/80"
-              }`}
+                }`}
             />
           ))}
         </div>

@@ -16,7 +16,7 @@ export const heroSlides = [
       "Thousands of genuine products across ten categories — delivered to your door.",
     cta: { label: "Shop Now", href: "#categories" },
     image:
-      "https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1509386175345-24d4e16ae35f?auto=format&fit=crop&w=1600&q=80",
     theme: "navy",
   },
   {
@@ -29,7 +29,7 @@ export const heroSlides = [
       "Wheel-thrown vases, planters and tableware made in our Mokama studio.",
     cta: { label: "Explore Pottery", href: "#pottery" },
     image:
-      "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1633931763852-46bbf1c22961?auto=format&fit=crop&w=1600&q=80",
     theme: "clay",
   },
   {
@@ -42,7 +42,7 @@ export const heroSlides = [
       "Headphones, earbuds, smart watches and desk setups at honest prices.",
     cta: { label: "Shop Electronics", href: "#best-sellers" },
     image:
-      "https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1559327875-12005444b626?auto=format&fit=crop&w=1600&q=80",
     theme: "indigo",
   },
 ];
