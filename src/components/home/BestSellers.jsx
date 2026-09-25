@@ -10,7 +10,7 @@ const BestSellers = () => (
       icon={Crown}
       title="Best Sellers"
       subtitle="Most loved by our customers"
-      linkHref="#best-sellers"
+      linkHref="/best-sellers"
     />
 
     <ProductRail products={getBestSellers(5)} cols={5} />

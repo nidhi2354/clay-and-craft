@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ChevronDown,
   ChevronRight,
@@ -16,11 +17,11 @@ import {
   X,
 } from "lucide-react";
 import Logo from "../common/Logo";
+import SmartLink from "../common/SmartLink";
 import categories from "../../data/categories";
 import { mainNav, site } from "../../data/site";
-
-const CART_COUNT = 2;
-const WISHLIST_COUNT = 1;
+import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 
 // Quick suggestions chips matching UI reference
 const SUGGESTIONS = [
@@ -33,8 +34,18 @@ const SUGGESTIONS = [
 const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
-  const [openGroup, setOpenGroup] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const catRef = useRef(null);
+  const navigate = useNavigate();
+  const { totalItems: cartCount } = useCart();
+  const { totalItems: wishlistCount } = useWishlist();
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const query = searchQuery.trim();
+    navigate(query ? `/search?q=${encodeURIComponent(query)}` : "/search");
+    setDrawerOpen(false);
+  };
 
   /* Close category dropdown on outside click or Escape key */
   useEffect(() => {
@@ -67,7 +78,7 @@ const Header = () => {
   const searchField = (id, className = "") => (
     <form
       role="search"
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSearchSubmit}
       className={`relative ${className}`}
     >
       <label htmlFor={id} className="sr-only">
@@ -85,6 +96,8 @@ const Header = () => {
       <input
         id={id}
         type="search"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
         placeholder="What are you looking for?"
         className="h-10 w-full rounded-full border border-slate-700 bg-slate-900/80 pl-10 pr-20 text-xs text-white placeholder:text-gray-400 focus:border-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-400 sm:text-sm"
       />
@@ -111,7 +124,7 @@ const Header = () => {
   );
 
   const iconLink = (Icon, label, count, href = "#") => (
-    <a
+    <SmartLink
       href={href}
       aria-label={count ? `${label}, ${count} items` : label}
       className="relative grid h-9 w-9 place-items-center rounded-full text-gray-200 transition-colors hover:bg-white/10 hover:text-white"
@@ -126,7 +139,7 @@ const Header = () => {
           {count}
         </span>
       )}
-    </a>
+    </SmartLink>
   );
 
   return (
@@ -164,9 +177,9 @@ const Header = () => {
 
           {/* Action Icons */}
           <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
-            {iconLink(Heart, "Wishlist", WISHLIST_COUNT)}
-            {iconLink(ShoppingCart, "Shopping cart", CART_COUNT)}
-            {iconLink(User, "Account", 0)}
+            {iconLink(Heart, "Wishlist", wishlistCount, "/wishlist")}
+            {iconLink(ShoppingCart, "Shopping cart", cartCount, "/cart")}
+            {iconLink(User, "Account", 0, "/account")}
           </div>
         </div>
 
@@ -218,9 +231,9 @@ const Header = () => {
                 className="absolute left-0 top-full z-50 w-72 overflow-hidden rounded-b-xl border border-slate-700 bg-slate-900 py-1.5 shadow-xl"
               >
                 {categories.map((cat) => (
-                  <a
+                  <SmartLink
                     key={cat.id}
-                    href={cat.slug === "pottery" ? "#pottery" : "#categories"}
+                    href={`/category/${cat.slug}`}
                     onClick={() => setCatOpen(false)}
                     className="group flex items-center gap-3 px-4 py-2 text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-amber-400"
                   >
@@ -231,7 +244,7 @@ const Header = () => {
                     />
                     <span className="flex-1 truncate">{cat.name}</span>
                     <ChevronRight size={13} className="text-slate-500" />
-                  </a>
+                  </SmartLink>
                 ))}
               </div>
             )}
@@ -240,13 +253,13 @@ const Header = () => {
           {/* Main Links */}
           <nav aria-label="Main" className="flex items-stretch gap-1">
             {mainNav.map((link) => (
-              <a
+              <SmartLink
                 key={link.name}
                 href={link.href}
                 className="flex items-center border-b-2 border-transparent px-3 text-xs font-medium text-slate-300 hover:border-amber-400 hover:text-white"
               >
                 {link.name}
-              </a>
+              </SmartLink>
             ))}
           </nav>
         </div>
@@ -277,8 +290,8 @@ const Header = () => {
               <ul className="space-y-1">
                 {categories.map((cat) => (
                   <li key={cat.id}>
-                    <a
-                      href="#categories"
+                    <SmartLink
+                      href={`/category/${cat.slug}`}
                       onClick={() => setDrawerOpen(false)}
                       className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-200 hover:bg-slate-800"
                     >
@@ -288,7 +301,7 @@ const Header = () => {
                         className="h-7 w-7 rounded-md object-cover"
                       />
                       <span>{cat.name}</span>
-                    </a>
+                    </SmartLink>
                   </li>
                 ))}
               </ul>

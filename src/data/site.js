@@ -33,36 +33,36 @@ export const socialLinks = [
 ];
 
 export const mainNav = [
-  { name: "Home", href: "#top" },
-  { name: "Shop", href: "#categories" },
-  { name: "New Arrivals", href: "#new-arrivals" },
-  { name: "Best Sellers", href: "#best-sellers" },
-  { name: "Deals", href: "#deals" },
-  { name: "Pottery", href: "#pottery", highlight: true },
-  { name: "About Us", href: "#about" },
+  { name: "Home", href: "/" },
+  { name: "Shop", href: "/shop" },
+  { name: "New Arrivals", href: "/new-arrivals" },
+  { name: "Best Sellers", href: "/best-sellers" },
+  { name: "Deals", href: "/deals" },
+  { name: "Pottery", href: "/category/pottery", highlight: true },
+  { name: "About Us", href: "/about" },
 ];
 
 export const footerNav = [
   {
     heading: "Quick Links",
     links: [
-      { name: "Home", href: "#top" },
-      { name: "Shop", href: "#categories" },
-      { name: "Best Sellers", href: "#best-sellers" },
-      { name: "New Arrivals", href: "#new-arrivals" },
-      { name: "Today's Deals", href: "#deals" },
-      { name: "Pottery Studio", href: "#pottery" },
+      { name: "Home", href: "/" },
+      { name: "Shop", href: "/shop" },
+      { name: "Best Sellers", href: "/best-sellers" },
+      { name: "New Arrivals", href: "/new-arrivals" },
+      { name: "Today's Deals", href: "/deals" },
+      { name: "Pottery Studio", href: "/category/pottery" },
     ],
   },
   {
     heading: "Customer Service",
     links: [
-      { name: "Track Order", href: "#" },
-      { name: "Returns & Refunds", href: "#" },
-      { name: "Shipping Policy", href: "#" },
-      { name: "FAQ", href: "#" },
-      { name: "Contact Us", href: "#about" },
-      { name: "Help Centre", href: "#" },
+      { name: "Track Order", href: "/track-order" },
+      { name: "Returns & Refunds", href: "/returns" },
+      { name: "Shipping Policy", href: "/shipping" },
+      { name: "FAQ", href: "/faq" },
+      { name: "Contact Us", href: "/about#contact" },
+      { name: "Help Centre", href: "/faq" },
     ],
   },
 ];

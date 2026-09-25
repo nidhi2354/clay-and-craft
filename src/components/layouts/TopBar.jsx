@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Phone, Truck } from "lucide-react";
 import { announcements } from "../../data/content";
 import { site } from "../../data/site";
@@ -44,12 +45,12 @@ const TopBar = () => {
 
           <span aria-hidden="true" className="h-3 w-px bg-white/20" />
 
-          <a href="#" className="text-white/75 transition-colors hover:text-gold-300">
+          <Link to="/track-order" className="text-white/75 transition-colors hover:text-gold-300">
             Track Order
-          </a>
-          <a href="#" className="text-white/75 transition-colors hover:text-gold-300">
+          </Link>
+          <Link to="/faq" className="text-white/75 transition-colors hover:text-gold-300">
             Help
-          </a>
+          </Link>
         </div>
       </div>
     </div>

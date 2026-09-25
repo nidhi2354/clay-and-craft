@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import SmartLink from "../common/SmartLink";
 import { heroSlides } from "../../data/content";
 
 /**
@@ -109,7 +110,7 @@ const HeroSlider = () => {
                       {slide.offer}
                     </span>
 
-                    <a
+                    <SmartLink
                       href={slide.cta.href}
                       className="group inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-bold text-navy-900 transition-colors hover:bg-gold-300 sm:px-6 sm:py-2.5 sm:text-sm"
                     >
@@ -119,7 +120,7 @@ const HeroSlider = () => {
                         aria-hidden="true"
                         className="transition-transform duration-200 group-hover:translate-x-0.5"
                       />
-                    </a>
+                    </SmartLink>
                   </div>
                 </div>
               </div>

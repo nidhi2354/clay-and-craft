@@ -14,7 +14,7 @@ export const heroSlides = [
     offer: "Up to 50% off",
     description:
       "Thousands of genuine products across ten categories — delivered to your door.",
-    cta: { label: "Shop Now", href: "#categories" },
+    cta: { label: "Shop Now", href: "/shop" },
     image:
       "https://images.unsplash.com/photo-1509386175345-24d4e16ae35f?auto=format&fit=crop&w=1600&q=80",
     theme: "navy",
@@ -27,7 +27,7 @@ export const heroSlides = [
     offer: "New collection live",
     description:
       "Wheel-thrown vases, planters and tableware made in our Mokama studio.",
-    cta: { label: "Explore Pottery", href: "#pottery" },
+    cta: { label: "Explore Pottery", href: "/category/pottery" },
     image:
       "https://images.unsplash.com/photo-1633931763852-46bbf1c22961?auto=format&fit=crop&w=1600&q=80",
     theme: "clay",
@@ -40,7 +40,7 @@ export const heroSlides = [
     offer: "From ₹499",
     description:
       "Headphones, earbuds, smart watches and desk setups at honest prices.",
-    cta: { label: "Shop Electronics", href: "#best-sellers" },
+    cta: { label: "Shop Electronics", href: "/category/electronics" },
     image:
       "https://images.unsplash.com/photo-1559327875-12005444b626?auto=format&fit=crop&w=1600&q=80",
     theme: "indigo",
@@ -53,7 +53,7 @@ export const promoCards = [
     icon: "crown",
     title: "Best Sellers",
     subtitle: "Most loved products",
-    href: "#best-sellers",
+    href: "/best-sellers",
     image:
       "https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80",
     tone: "navy",
@@ -64,7 +64,7 @@ export const promoCards = [
     icon: "sparkles",
     title: "Unique Finds",
     subtitle: "Products you won't see everywhere",
-    href: "#pottery",
+    href: "/category/pottery",
     image:
       "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
     tone: "clay",
@@ -75,7 +75,7 @@ export const promoCards = [
     icon: "zap",
     title: "New Arrivals",
     subtitle: "Fresh styles, new choices",
-    href: "#new-arrivals",
+    href: "/new-arrivals",
     image:
       "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=800&q=80",
     tone: "brand",
@@ -87,42 +87,42 @@ export const specialCollections = [
   {
     id: 1,
     title: "Gifts for Kids",
-    href: "#",
+    href: "/category/toys",
     image:
       "https://images.unsplash.com/photo-1558877385-81a1c7e67d72?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 2,
     title: "Birthday Gifts",
-    href: "#",
+    href: "/category/gifts",
     image:
       "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 3,
     title: "Festival Collection",
-    href: "#",
+    href: "/category/gifts",
     image:
       "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 4,
     title: "Sports Collection",
-    href: "#",
+    href: "/category/sports",
     image:
       "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 5,
     title: "Handmade Collection",
-    href: "#pottery",
+    href: "/category/pottery",
     image:
       "https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 6,
     title: "Tech Collection",
-    href: "#",
+    href: "/category/electronics",
     image:
       "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
   },

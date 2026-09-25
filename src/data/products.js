@@ -71,6 +71,8 @@ const products = [
     ratingCount: 128,
     tags: ["best-seller", "deal"],
     stock: 24,
+    description:
+      "A rugged remote-control rally car built for indoor and outdoor play, with responsive steering and a rechargeable battery.",
   },
   {
     id: 2,
@@ -85,6 +87,8 @@ const products = [
     ratingCount: 96,
     tags: ["best-seller"],
     stock: 12,
+    description:
+      "Lightweight mesh running shoes with a cushioned sole, built for daily runs and all-day comfort.",
   },
   {
     id: 3,
@@ -99,6 +103,8 @@ const products = [
     ratingCount: 215,
     tags: ["best-seller", "deal"],
     stock: 40,
+    description:
+      "A 100-piece building block set that snaps together with leading brands, great for open-ended imaginative play.",
   },
   {
     id: 4,
@@ -113,6 +119,8 @@ const products = [
     ratingCount: 142,
     tags: ["best-seller", "new", "deal"],
     stock: 8,
+    description:
+      "Track steps, heart rate and sleep, and get call and message alerts on your wrist, with up to 7 days of battery life.",
   },
   {
     id: 5,
@@ -127,6 +135,8 @@ const products = [
     ratingCount: 88,
     tags: ["best-seller", "deal"],
     stock: 31,
+    description:
+      "UV400-rated polarized lenses cut glare and protect your eyes, in a lightweight frame built for all-day wear.",
   },
   {
     id: 6,
@@ -141,6 +151,8 @@ const products = [
     ratingCount: 302,
     tags: ["deal", "new"],
     stock: 17,
+    description:
+      "Over-ear wireless headphones with deep bass, a padded headband and up to 20 hours of playback.",
   },
   {
     id: 7,
@@ -155,6 +167,8 @@ const products = [
     ratingCount: 64,
     tags: ["deal"],
     stock: 55,
+    description:
+      "Official size 5 match football with a durable stitched cover, suited for turf and grass grounds alike.",
   },
   {
     id: 8,
@@ -169,6 +183,8 @@ const products = [
     ratingCount: 174,
     tags: ["best-seller", "deal"],
     stock: 22,
+    description:
+      "A 30-litre water-resistant backpack with a padded laptop sleeve, built for daily commutes and weekend trips.",
   },
   {
     id: 9,
@@ -183,6 +199,8 @@ const products = [
     ratingCount: 210,
     tags: ["new"],
     stock: 19,
+    description:
+      "True wireless earbuds with a compact charging case, touch controls and clear call quality.",
   },
   {
     id: 10,
@@ -197,6 +215,8 @@ const products = [
     ratingCount: 91,
     tags: ["new"],
     stock: 7,
+    description:
+      "A mechanical keyboard with per-key RGB backlighting and tactile switches, built for gaming and long typing sessions.",
   },
   {
     id: 11,
@@ -211,6 +231,8 @@ const products = [
     ratingCount: 58,
     tags: ["new"],
     stock: 33,
+    description:
+      "A pair of lightweight badminton rackets with a carry cover, ready for casual games or practice.",
   },
   {
     id: 12,
@@ -225,6 +247,8 @@ const products = [
     ratingCount: 137,
     tags: ["best-seller"],
     stock: 15,
+    description:
+      "A curated gift hamper in premium packaging, ready to hand over for birthdays, anniversaries and festivals.",
   },
   {
     id: 13,
@@ -239,6 +263,8 @@ const products = [
     ratingCount: 76,
     tags: ["new"],
     stock: 60,
+    description:
+      "A pack of 3 hardbound notebooks with smooth, bleed-resistant paper for daily notes and journaling.",
   },
   {
     id: 14,
@@ -253,6 +279,8 @@ const products = [
     ratingCount: 103,
     tags: ["deal"],
     stock: 26,
+    description:
+      "A warm-white LED table lamp with a soft, even glow, suited for a study desk or bedside table.",
   },
 
   /* ---- Handmade Pottery — the spotlight range ---- */
@@ -270,6 +298,8 @@ const products = [
     tags: ["pottery", "best-seller"],
     stock: 9,
     artisan: "Wheel-thrown in Mokama",
+    description:
+      "Thrown on the wheel and finished by hand in our Mokama studio — every vase carries its own subtle shape and glaze variation.",
   },
   {
     id: 16,
@@ -285,6 +315,8 @@ const products = [
     tags: ["pottery", "deal"],
     stock: 28,
     artisan: "Natural clay, unglazed",
+    description:
+      "Unglazed natural clay planter that lets roots breathe, hand-shaped with a raw, earthy finish.",
   },
   {
     id: 17,
@@ -300,6 +332,8 @@ const products = [
     tags: ["pottery", "best-seller"],
     stock: 41,
     artisan: "Food-safe glaze",
+    description:
+      "A food-safe glazed stoneware mug, hand-thrown and finished in-house — no two mugs glaze exactly alike.",
   },
   {
     id: 18,
@@ -315,6 +349,8 @@ const products = [
     tags: ["pottery", "new"],
     stock: 14,
     artisan: "Glazed by hand",
+    description:
+      "A hand-glazed ceramic serving bowl, wheel-thrown and finished with a smooth, food-safe glaze.",
   },
   {
     id: 19,
@@ -330,6 +366,8 @@ const products = [
     tags: ["pottery", "new"],
     stock: 20,
     artisan: "Oven and microwave safe",
+    description:
+      "A speckled stoneware dinner plate, oven and microwave safe, with the subtle texture only hand glazing gives.",
   },
   {
     id: 20,
@@ -345,6 +383,8 @@ const products = [
     tags: ["pottery", "best-seller", "deal"],
     stock: 11,
     artisan: "No two cups alike",
+    description:
+      "A set of 4 matte-glaze tea cups, each hand-thrown so no two cups in the set are quite alike.",
   },
 ];
 
@@ -363,6 +403,30 @@ export const formatPrice = (value) =>
 /* ------ Selectors: swap for API calls without touching a component ------ */
 
 const byTag = (tag) => (p) => p.tags.includes(tag);
+
+/** Single product lookups — what a `GET /products/:id` or `/:slug` returns. */
+export const getProductById = (id) => products.find((p) => p.id === id);
+export const getProductBySlug = (slug) => products.find((p) => p.slug === slug);
+
+/**
+ * Products to show alongside a product detail page. Prefers the same
+ * category; when a category is too small on its own (e.g. Watches has
+ * only one product today), it's topped up with other products so the
+ * rail never looks sparse.
+ */
+export const getRelatedProducts = (product, limit = 5) => {
+  const sameCategory = products.filter(
+    (p) => p.id !== product.id && p.categorySlug === product.categorySlug,
+  );
+
+  if (sameCategory.length >= limit) return sameCategory.slice(0, limit);
+
+  const fillers = products.filter(
+    (p) => p.id !== product.id && p.categorySlug !== product.categorySlug,
+  );
+
+  return [...sameCategory, ...fillers].slice(0, limit);
+};
 
 export const getTopPicks = (limit = 5) =>
   [...products]
@@ -383,5 +447,53 @@ export const getDeals = (limit = 8) =>
     .filter(byTag("deal"))
     .sort((a, b) => getDiscount(b) - getDiscount(a))
     .slice(0, limit);
+
+/* ---- Shop / Category listing: filters + sort ----
+ * Kept as small composable functions — `GET /products?category=…&price=…
+ * &sort=…` maps one-to-one to getProductsByCategory + filterByPriceBand
+ * + sortProducts, so swapping the client-side array for an API response
+ * later means the listing page barely changes. */
+
+/** All products in a category — what a `GET /products?category=:slug` returns. */
+export const getProductsByCategory = (categorySlug) =>
+  products.filter((p) => p.categorySlug === categorySlug);
+
+/** Price bands shown as filter chips. `max: Infinity` means "and above". */
+export const PRICE_BANDS = [
+  { id: "under-500", label: "Under ₹500", min: 0, max: 499 },
+  { id: "500-1000", label: "₹500 – ₹1,000", min: 500, max: 1000 },
+  { id: "1000-2000", label: "₹1,000 – ₹2,000", min: 1000, max: 2000 },
+  { id: "above-2000", label: "Above ₹2,000", min: 2001, max: Infinity },
+];
+
+/** Filters a product list down to one price band. Unknown id = no-op. */
+export const filterByPriceBand = (list, bandId) => {
+  const band = PRICE_BANDS.find((b) => b.id === bandId);
+  return band ? list.filter((p) => p.price >= band.min && p.price <= band.max) : list;
+};
+
+export const SORT_OPTIONS = [
+  { id: "popularity", label: "Popularity" },
+  { id: "price-asc", label: "Price: Low to High" },
+  { id: "price-desc", label: "Price: High to Low" },
+  { id: "rating", label: "Customer Rating" },
+];
+
+/** Sorts a copy of the list — never mutates what's passed in. */
+export const sortProducts = (list, sortId) => {
+  switch (sortId) {
+    case "price-asc":
+      return [...list].sort((a, b) => a.price - b.price);
+    case "price-desc":
+      return [...list].sort((a, b) => b.price - a.price);
+    case "rating":
+      return [...list].sort((a, b) => b.rating - a.rating);
+    case "popularity":
+    default:
+      return [...list].sort(
+        (a, b) => b.rating * b.ratingCount - a.rating * a.ratingCount,
+      );
+  }
+};
 
 export default products;

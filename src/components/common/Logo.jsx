@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { site } from "../../data/site";
 
 /**
@@ -11,8 +12,8 @@ const Logo = ({ variant = "dark", showTagline = true, className = "" }) => {
   const isLight = variant === "light";
 
   return (
-    <a
-      href="#top"
+    <Link
+      to="/"
       aria-label={`${site.name} — home`}
       className={`flex shrink-0 items-center gap-2.5 ${className}`}
     >
@@ -49,7 +50,7 @@ const Logo = ({ variant = "dark", showTagline = true, className = "" }) => {
           </span>
         )}
       </span>
-    </a>
+    </Link>
   );
 };
 

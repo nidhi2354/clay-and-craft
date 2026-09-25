@@ -11,7 +11,7 @@ const TopPicks = () => (
       icon={Flame}
       title="Today's Top Picks"
       subtitle="Handpicked just for you"
-      linkHref="#top-picks"
+      linkHref="/shop"
     />
 
     <ProductRail products={getTopPicks(5)} cols={5} />

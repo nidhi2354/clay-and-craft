@@ -1,9 +1,14 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import Logo from "../common/Logo";
+import SmartLink from "../common/SmartLink";
 import categories from "../../data/categories";
 import { footerNav, site, socialLinks } from "../../data/site";
 
-
+const LEGAL_LINKS = [
+  { name: "Terms & Conditions", href: "/terms" },
+  { name: "Privacy Policy", href: "/privacy" },
+  { name: "Sitemap", href: "/sitemap" },
+];
 
 const Footer = () => (
   <footer id="about" className="scroll-mt-28 bg-navy-900 text-white">
@@ -86,12 +91,12 @@ const Footer = () => (
               <ul className="mt-3 space-y-2">
                 {group.links.map((link) => (
                   <li key={link.name}>
-                    <a
+                    <SmartLink
                       href={link.href}
                       className="text-[13px] text-white/60 transition-colors hover:text-gold-300 sm:text-sm"
                     >
                       {link.name}
-                    </a>
+                    </SmartLink>
                   </li>
                 ))}
               </ul>
@@ -105,13 +110,13 @@ const Footer = () => (
             <ul className="mt-3 space-y-2">
               {categories.slice(0, 6).map((cat) => (
                 <li key={cat.id}>
-                  <a
-                    href={cat.slug === "pottery" ? "#pottery" : "#categories"}
+                  <SmartLink
+                    href={`/category/${cat.slug}`}
                     className={`text-[13px] transition-colors hover:text-gold-300 sm:text-sm ${cat.featured ? "font-medium text-clay-300" : "text-white/60"
                       }`}
                   >
                     {cat.name}
-                  </a>
+                  </SmartLink>
                 </li>
               ))}
             </ul>
@@ -158,11 +163,11 @@ const Footer = () => (
         </p>
 
         <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/45">
-          {["Terms & Conditions", "Privacy Policy", "Sitemap"].map((item) => (
-            <li key={item}>
-              <a href="#" className="transition-colors hover:text-gold-300">
-                {item}
-              </a>
+          {LEGAL_LINKS.map((item) => (
+            <li key={item.href}>
+              <SmartLink href={item.href} className="transition-colors hover:text-gold-300">
+                {item.name}
+              </SmartLink>
             </li>
           ))}
         </ul>

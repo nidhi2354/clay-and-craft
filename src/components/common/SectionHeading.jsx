@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import SmartLink from "./SmartLink";
 
 /**
  * Section header used by every home-page block.
@@ -84,7 +85,7 @@ const SectionHeading = ({
       </div>
 
       {linkHref && (
-        <a
+        <SmartLink
           href={linkHref}
           className={`group flex shrink-0 items-center gap-1 text-xs font-semibold transition-colors sm:text-sm ${t.link}`}
         >
@@ -94,7 +95,7 @@ const SectionHeading = ({
             aria-hidden="true"
             className="transition-transform duration-200 group-hover:translate-x-0.5"
           />
-        </a>
+        </SmartLink>
       )}
     </div>
   );

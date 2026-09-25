@@ -2,6 +2,7 @@ import { ArrowRight, Flame, Hand, Leaf, Sparkles } from "lucide-react";
 import Section from "../common/Section";
 import ProductRail from "../common/ProductRail";
 import Button from "../common/Button";
+import SmartLink from "../common/SmartLink";
 import { getPottery } from "../../data/products";
 import { site } from "../../data/site";
 
@@ -73,7 +74,7 @@ const PotterySpotlight = () => {
             </ul>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button href="#pottery" variant="clay" size="md">
+              <Button href="/category/pottery" variant="clay" size="md">
                 Shop the Collection
                 <ArrowRight size={16} aria-hidden="true" />
               </Button>
@@ -119,8 +120,8 @@ const PotterySpotlight = () => {
               From the pottery studio
             </h3>
 
-            <a
-              href="#pottery"
+            <SmartLink
+              href="/category/pottery"
               className="group flex shrink-0 items-center gap-1 text-xs font-semibold text-clay-600 transition-colors hover:text-clay-800 sm:text-sm"
             >
               See All
@@ -129,7 +130,7 @@ const PotterySpotlight = () => {
                 aria-hidden="true"
                 className="transition-transform duration-200 group-hover:translate-x-0.5"
               />
-            </a>
+            </SmartLink>
           </div>
 
           <ProductRail products={pottery} cols={6} tone="clay" />

@@ -10,7 +10,7 @@ const NewArrivals = () => (
       icon={Sparkles}
       title="New Arrivals"
       subtitle="Fresh styles, new choices"
-      linkHref="#new-arrivals"
+      linkHref="/new-arrivals"
     />
 
     <ProductRail products={getNewArrivals(5)} cols={5} />

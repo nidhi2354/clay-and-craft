@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
+
 /**
- * The one button in the system. Renders as <a> when given an href,
- * otherwise as <button>, so a CTA never loses its link semantics.
+ * The one button in the system. Renders as a router <Link> for internal
+ * paths ("/cart"), a plain <a> for hash anchors and external links
+ * (mailto:, tel:, wa.me, "#section"), or a <button> when there's no
+ * href — so a CTA never loses its link semantics, and internal links
+ * navigate client-side instead of reloading the page.
  *
  * Variants map to the token ramps in index.css — no component
  * should ever hand-roll a background colour.
@@ -33,7 +38,8 @@ const Button = ({
   children,
   ...rest
 }) => {
-  const Tag = as ?? (href ? "a" : "button");
+  const isInternal = href?.startsWith("/");
+  const Tag = as ?? (isInternal ? Link : href ? "a" : "button");
 
   const classes = [
     "inline-flex items-center justify-center rounded-full font-semibold",
@@ -47,9 +53,11 @@ const Button = ({
     .filter(Boolean)
     .join(" ");
 
+  const hrefProp = Tag === Link ? { to: href } : { href };
+
   return (
     <Tag
-      href={href}
+      {...hrefProp}
       className={classes}
       {...(Tag === "button" ? { type: rest.type ?? "button" } : null)}
       {...rest}

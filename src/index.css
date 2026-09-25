@@ -72,6 +72,19 @@
 
   /* Motion */
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-toast-in: toast-in 0.2s ease-out;
+}
+
+/* Toast notification entrance — referenced by --animate-toast-in above */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @layer base {

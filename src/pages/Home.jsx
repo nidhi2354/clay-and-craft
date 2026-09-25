@@ -10,14 +10,7 @@ import SpecialCollection from "../components/home/SpecialCollection";
 import TrustBadges from "../components/home/TrustBadges";
 import Reviews from "../components/home/Reviews";
 
-/**
- * Home page composition.
- *
- * Section order is deliberate: browse (categories) → buy (top picks)
- * → explore (promos) → urgency (deals) → the pottery story, which
- * lands right after the loudest block so the change of pace registers
- * → then the long tail and social proof.
- */
+
 const Home = () => (
   <>
     <HeroSlider />

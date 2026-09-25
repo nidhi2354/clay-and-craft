@@ -11,7 +11,6 @@ const Reviews = () => (
       icon={Star}
       title="What Our Customers Say"
       subtitle="Real reviews. Real happiness."
-      linkHref="#reviews"
     />
 
     <ul className="grid gap-3 md:grid-cols-3 lg:gap-4">

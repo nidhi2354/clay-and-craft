@@ -1,6 +1,7 @@
 import { LayoutGrid } from "lucide-react";
 import Section from "../common/Section";
 import SectionHeading from "../common/SectionHeading";
+import SmartLink from "../common/SmartLink";
 import categories from "../../data/categories";
 
 /**
@@ -28,14 +29,14 @@ const CategoryGrid = () => (
       title="Shop by Category"
       subtitle="Find what you love, all in one place."
       linkLabel="View All"
-      linkHref="#categories"
+      linkHref="/shop"
     />
 
     <ul className="grid grid-cols-4 gap-2.5 sm:grid-cols-5 sm:gap-4 lg:grid-cols-10 lg:gap-3">
       {categories.map((cat) => (
         <li key={cat.id}>
-          <a
-            href={cat.slug === "pottery" ? "#pottery" : "#categories"}
+          <SmartLink
+            href={`/category/${cat.slug}`}
             className="group flex flex-col items-center gap-2 text-center"
           >
             <span
@@ -63,7 +64,7 @@ const CategoryGrid = () => (
             <span className="clamp-2 w-full text-[11px] font-semibold leading-tight text-ink-700 transition-colors group-hover:text-navy-700 sm:text-xs">
               {cat.name}
             </span>
-          </a>
+          </SmartLink>
         </li>
       ))}
     </ul>

@@ -1,5 +1,6 @@
 import { ArrowRight, Crown, Sparkles, Zap } from "lucide-react";
 import Section from "../common/Section";
+import SmartLink from "../common/SmartLink";
 import { promoCards } from "../../data/content";
 
 /**
@@ -38,7 +39,7 @@ const PromoBanners = () => (
 
         return (
           <li key={card.id}>
-            <a
+            <SmartLink
               href={card.href}
               className="group relative block aspect-[16/7] overflow-hidden rounded-2xl sm:aspect-[16/8]"
             >
@@ -77,7 +78,7 @@ const PromoBanners = () => (
                   <ArrowRight size={12} aria-hidden="true" />
                 </span>
               </div>
-            </a>
+            </SmartLink>
           </li>
         );
       })}

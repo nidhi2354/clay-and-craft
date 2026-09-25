@@ -47,7 +47,7 @@ const DealsSection = () => {
                   : "Limited time offers — don't miss out!"
               }
               linkLabel="View All Deals"
-              linkHref="#deals"
+              linkHref="/deals"
               className="mb-0 flex-1"
             />
           </div>

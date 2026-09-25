@@ -1,6 +1,10 @@
+import { Link } from "react-router-dom";
 import { Heart, ShoppingCart } from "lucide-react";
 import StarRating from "./StarRating";
 import { formatPrice, getDiscount } from "../../data/products";
+import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
+import { useToast } from "../../context/ToastContext";
 
 /**
  * The single product tile. Top Picks, Best Sellers, New Arrivals, Deals
@@ -27,10 +31,28 @@ const TONES = {
 };
 
 const ProductCard = ({ product, tone = "default", compact = false }) => {
+  const { addItem } = useCart();
+  const { toggleItem, isWishlisted } = useWishlist();
+  const { showToast } = useToast();
+
   const t = TONES[tone] ?? TONES.default;
   const discount = getDiscount(product);
-  const href = `#product-${product.slug}`;
+  const href = `/product/${product.slug}`;
   const lowStock = product.stock > 0 && product.stock <= 10;
+  const outOfStock = product.stock <= 0;
+  const wishlisted = isWishlisted(product.id);
+
+  const handleAddToCart = () => {
+    addItem(product.id, 1);
+    showToast(`Added "${product.name}" to cart`);
+  };
+
+  const handleToggleWishlist = () => {
+    toggleItem(product.id);
+    showToast(
+      wishlisted ? `Removed "${product.name}" from wishlist` : `Added "${product.name}" to wishlist`,
+    );
+  };
 
   return (
     <article
@@ -38,7 +60,7 @@ const ProductCard = ({ product, tone = "default", compact = false }) => {
     >
       {/* Image */}
       <div className={`relative aspect-square overflow-hidden ${t.imgBg}`}>
-        <a href={href} tabIndex={-1} aria-hidden="true">
+        <Link to={href} tabIndex={-1} aria-hidden="true">
           <img
             src={product.image}
             alt=""
@@ -46,7 +68,7 @@ const ProductCard = ({ product, tone = "default", compact = false }) => {
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-500 ease-soft group-hover:scale-105"
           />
-        </a>
+        </Link>
 
         {discount > 0 && (
           <span
@@ -58,10 +80,18 @@ const ProductCard = ({ product, tone = "default", compact = false }) => {
 
         <button
           type="button"
-          aria-label={`Add ${product.name} to wishlist`}
-          className="absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-full bg-white/90 text-ink-500 shadow-sm backdrop-blur transition-colors hover:text-danger"
+          onClick={handleToggleWishlist}
+          aria-label={
+            wishlisted
+              ? `Remove ${product.name} from wishlist`
+              : `Add ${product.name} to wishlist`
+          }
+          aria-pressed={wishlisted}
+          className={`absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-full bg-white/90 shadow-sm backdrop-blur transition-colors ${
+            wishlisted ? "text-danger" : "text-ink-500 hover:text-danger"
+          }`}
         >
-          <Heart size={14} aria-hidden="true" />
+          <Heart size={14} aria-hidden="true" fill={wishlisted ? "currentColor" : "none"} />
         </button>
 
         {lowStock && (
@@ -76,9 +106,9 @@ const ProductCard = ({ product, tone = "default", compact = false }) => {
         className={`flex flex-1 flex-col ${compact ? "gap-1.5 p-2.5" : "gap-2 p-3"}`}
       >
         <h3 className="clamp-2 min-h-8 text-xs font-semibold leading-4 text-ink-900 sm:text-[13px] sm:leading-5">
-          <a href={href} className="transition-colors hover:text-brand-500">
+          <Link to={href} className="transition-colors hover:text-brand-500">
             {product.name}
-          </a>
+          </Link>
         </h3>
 
         {product.artisan ? (
@@ -113,18 +143,12 @@ const ProductCard = ({ product, tone = "default", compact = false }) => {
         <div className="flex items-center gap-1.5 pt-0.5">
           <button
             type="button"
-            className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg text-[11px] font-bold transition-colors sm:text-xs ${t.cta}`}
+            onClick={handleAddToCart}
+            disabled={outOfStock}
+            className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg text-[11px] font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-50 sm:text-xs ${t.cta}`}
           >
             <ShoppingCart size={13} aria-hidden="true" />
-            Add to Cart
-          </button>
-
-          <button
-            type="button"
-            aria-label={`Save ${product.name} for later`}
-            className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-line text-ink-500 transition-colors hover:border-danger/40 hover:text-danger"
-          >
-            <Heart size={14} aria-hidden="true" />
+            {outOfStock ? "Out of Stock" : "Add to Cart"}
           </button>
         </div>
       </div>
